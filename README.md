@@ -2,11 +2,13 @@
 
 
 <h1 align="center">
-    Terraform DigitalOcean SSH Key
+    Terraform DigitalOcean SSL Certificate
+
+
 </h1>
 
-<p align="center" style="font-size: 1.2rem;">
-    Provides a DigitalOcean SSH key resource to allow you to manage SSH keys for Droplet access.
+<p align="center" style="font-size: 1.2rem;"> 
+    Provides a DigitalOcean Certificate resource that allows you to manage certificates.
      </p>
 
 <p align="center">
@@ -22,13 +24,13 @@
 </p>
 <p align="center">
 
-<a href='https://facebook.com/sharer/sharer.php?u=https://github.com/clouddrove/terraform-digitalocean-ssh-key'>
+<a href='https://facebook.com/sharer/sharer.php?u=https://github.com/clouddrove/terraform-digitalocean-ssl-certificate'>
   <img title="Share on Facebook" src="https://user-images.githubusercontent.com/50652676/62817743-4f64cb80-bb59-11e9-90c7-b057252ded50.png" />
 </a>
-<a href='https://www.linkedin.com/shareArticle?mini=true&title=Terraform+DigitalOcean+SSH+Key&url=https://github.com/clouddrove/terraform-digitalocean-ssh-key'>
+<a href='https://www.linkedin.com/shareArticle?mini=true&title=Terraform+DigitalOcean+SSL+Certificate&url=https://github.com/clouddrove/terraform-digitalocean-ssl-certificate'>
   <img title="Share on LinkedIn" src="https://user-images.githubusercontent.com/50652676/62817742-4e339e80-bb59-11e9-87b9-a1f68cae1049.png" />
 </a>
-<a href='https://twitter.com/intent/tweet/?text=Terraform+DigitalOcean+SSH+Key&url=https://github.com/clouddrove/terraform-digitalocean-ssh-key'>
+<a href='https://twitter.com/intent/tweet/?text=Terraform+DigitalOcean+SSL+Certificate&url=https://github.com/clouddrove/terraform-digitalocean-ssl-certificate'>
   <img title="Share on Twitter" src="https://user-images.githubusercontent.com/50652676/62817740-4c69db00-bb59-11e9-8a79-3580fbbf6d5c.png" />
 </a>
 
@@ -41,7 +43,7 @@
 
 ## Prerequisites
 
-This module has a few dependencies:
+This module has a few dependencies: 
 
 
 
@@ -50,18 +52,28 @@ This module has a few dependencies:
 
 
 
-**IMPORTANT:** Since the `master` branch used in `source` varies based on new modifications, we suggest that you use the release versions [here](https://github.com/clouddrove/terraform-digitalocean-ssh-key/releases).
+**IMPORTANT:** Since the `master` branch used in `source` varies based on new modifications, we suggest that you use the release versions [here](https://github.com/clouddrove/terraform-digitalocean-ssl-certificate/releases).
 
 
-### Simple Example
-Here is an example of how you can use this module in your inventory structure:
+Here are examples of how you can use this module in your inventory structure:
+### custom-certificate
 ```hcl
-    module "ssh-key" {
-      source          = "./../"
-      key             = "~/.ssh/id_rsa.pub"
-      key_name        = "devops"
-      enable_ssh_key  = true
-    }
+    module "custom_certificate" {
+    source             = "./../../"
+    certificate_name   = "test"
+    private_key        = "./../../../_ssl/private-key.pem"
+    leaf_certificate   = "./../../../_ssl/star.crt"
+    custom_certificate = true
+  }
+```
+### lets-encrypt-certificate
+```hcl
+    module "lets_encrypt_certificate" {
+    source                   = "./../../"
+    certificate_name         = "test"
+    domain_names             = ["clouddrove.com"]
+    lets_encrypt_certificate = true
+  }
 ```
 
 
@@ -73,27 +85,33 @@ Here is an example of how you can use this module in your inventory structure:
 
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
-| enable_ssh_key | A boolean flag to enable/disable ssh key. | bool | `true` | no |
-| key_name | Name  (e.g. `it-admin` or `devops`). | string | `` | no |
-| key_path | Name  (e.g. `~/.ssh/id_rsa.pub` or `ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQD3F6tyPEFEzV0LX3X8BsXdMsQ`). | string | `` | no |
+| certificate_chain | Path of certificate chain. | string | `` | no |
+| certificate_name | The name of the certificate for identification. | string | `` | no |
+| custom_certificate | A boolean flag to enable/disable custom_certificate. | bool | `false` | no |
+| domain_names | List of fully qualified domain names (FQDNs) for which the certificate will be issued. The domains must be managed using DigitalOcean's DNS. Only valid when type is lets_encrypt. | list | `<list>` | no |
+| enable_certificate | A boolean flag to enable/disable certificate. | bool | `true` | no |
+| leaf_certificate | Path of certificate body. | string | `~` | no |
+| lets_encrypt_certificate | A boolean flag to enable/disable lets_encrypt_certificate. | bool | `false` | no |
+| private_key | Path of private key. | string | `` | no |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| id | The unique ID of the key. |
-| name | Name of SSH key. |
-| public_key | The text of the public key. |
+| id | The unique ID of the certificate. |
+| name | The name of the certificate. |
+| not_after | The expiration date of the certificate. |
+| sha1_fingerprint | The SHA-1 fingerprint of the certificate. |
 
 
 
 
 
 
-## Feedback
-If you come accross a bug or have any feedback, please log it in our [issue tracker](https://github.com/clouddrove/terraform-digitalocean-ssh-key/issues), or feel free to drop us an email at [hello@clouddrove.com](mailto:hello@clouddrove.com).
+## Feedback 
+If you come accross a bug or have any feedback, please log it in our [issue tracker](https://github.com/clouddrove/terraform-digitalocean-ssl-certificate/issues), or feel free to drop us an email at [hello@clouddrove.com](mailto:hello@clouddrove.com).
 
-If you have found it worth your time, go ahead and give us a ★ on [our GitHub](https://github.com/clouddrove/terraform-digitalocean-ssh-key)!
+If you have found it worth your time, go ahead and give us a ★ on [our GitHub](https://github.com/clouddrove/terraform-digitalocean-ssl-certificate)!
 
 ## About us
 

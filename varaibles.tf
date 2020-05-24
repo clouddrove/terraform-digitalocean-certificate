@@ -21,8 +21,7 @@ variable "lets_encrypt_certificate" {
 variable "certificate_name" {
   type        = string
   default     = ""
-  description = "Name  (e.g. `~/.ssh/id_rsa.pub` or `ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQD3F6tyPEFEzV0LX3X8BsXdMsQ`)."
-
+  description = "The name of the certificate for identification."
 }
 
 variable "private_key" {
@@ -34,7 +33,7 @@ variable "private_key" {
 variable "domain_names" {
   type        = list
   default     = []
-  description = "Path of private key."
+  description = "List of fully qualified domain names (FQDNs) for which the certificate will be issued. The domains must be managed using DigitalOcean's DNS. Only valid when type is lets_encrypt."
 }
 
 variable "leaf_certificate" {

@@ -5,13 +5,13 @@
 #
 
 # Name of this project
-name : Terraform DigitalOcean SSH Key
+name : Terraform DigitalOcean SSL Certificate
 
 # License of this project
 license: "MIT"
 
 # Canonical GitHub repo
-github_repo: clouddrove/terraform-digitalocean-ssh-key
+github_repo: clouddrove/terraform-digitalocean-ssl-certificate
 
 # Badges to display
 badges:
@@ -24,7 +24,7 @@ badges:
 
 #  description of this project
 description: |-
-  Provides a DigitalOcean SSH key resource to allow you to manage SSH keys for Droplet access.
+  Provides a DigitalOcean Certificate resource that allows you to manage certificates.
 
 # extra content
 include:
@@ -32,13 +32,23 @@ include:
 
 # How to use this project
 usage : |-
-  ### Simple Example
-  Here is an example of how you can use this module in your inventory structure:
+  Here are examples of how you can use this module in your inventory structure:
+  ### custom-certificate
   ```hcl
-      module "ssh-key" {
-        source          = "./../"
-        key             = "~/.ssh/id_rsa.pub"
-        key_name        = "devops"
-        enable_ssh_key  = true
-      }
+      module "custom_certificate" {
+      source             = "./../../"
+      certificate_name   = "test"
+      private_key        = "./../../../_ssl/private-key.pem"
+      leaf_certificate   = "./../../../_ssl/star.crt"
+      custom_certificate = true
+    }
+  ```
+  ### lets-encrypt-certificate
+  ```hcl
+      module "lets_encrypt_certificate" {
+      source                   = "./../../"
+      certificate_name         = "test"
+      domain_names             = ["clouddrove.com"]
+      lets_encrypt_certificate = true
+    }
   ```
