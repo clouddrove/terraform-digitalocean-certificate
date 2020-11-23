@@ -16,7 +16,7 @@ github_repo: clouddrove/terraform-digitalocean-ssl-certificate
 # Badges to display
 badges:
   - name: "Terraform"
-    image: "https://img.shields.io/badge/Terraform-v0.12-green"
+    image: "https://img.shields.io/badge/Terraform-v0.13-green"
     url: "https://www.terraform.io"
   - name: "Licence"
     image: "https://img.shields.io/badge/License-MIT-blue.svg"
@@ -36,17 +36,19 @@ usage : |-
   ### custom-certificate
   ```hcl
       module "custom_certificate" {
-      source             = "./../../"
+      source             = "clouddrove/certificate/digitalocean"
+      version            = "0.13.0"
       certificate_name   = "test"
-      private_key        = "./../../../_ssl/private-key.pem"
-      leaf_certificate   = "./../../../_ssl/star.crt"
+      private_key        = "~/.ssh/id_rsa.pub"
+      leaf_certificate   = "/etc/ssl/apache-selfsigned.crt"
       custom_certificate = true
     }
   ```
   ### lets-encrypt-certificate
   ```hcl
       module "lets_encrypt_certificate" {
-      source                   = "./../../"
+      source                   = "clouddrove/certificate/digitalocean"
+      version                  = "0.13.0"
       certificate_name         = "test"
       domain_names             = ["clouddrove.com"]
       lets_encrypt_certificate = true

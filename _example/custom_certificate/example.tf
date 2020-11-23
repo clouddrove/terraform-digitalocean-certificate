@@ -8,7 +8,7 @@ provider "digitalocean" {
 module "custom_certificate" {
   source             = "./../../"
   certificate_name   = "test"
-  private_key        = "./../../../_ssl/private-key.pem"
-  leaf_certificate   = "./../../../_ssl/star.crt"
+  private_key        = "~/.ssh/id_rsa.pub"
+  leaf_certificate   = "/etc/ssl/apache-selfsigned.crt"
   custom_certificate = true
 }
