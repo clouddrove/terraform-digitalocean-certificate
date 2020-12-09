@@ -14,7 +14,7 @@
 <p align="center">
 
 <a href="https://www.terraform.io">
-  <img src="https://img.shields.io/badge/Terraform-v0.12-green" alt="Terraform">
+  <img src="https://img.shields.io/badge/Terraform-v0.13-green" alt="Terraform">
 </a>
 <a href="LICENSE.md">
   <img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="Licence">
@@ -59,7 +59,8 @@ Here are examples of how you can use this module in your inventory structure:
 ### custom-certificate
 ```hcl
     module "custom_certificate" {
-    source             = "./../../"
+    source             = "clouddrove/certificate/digitalocean"
+    version            = "0.13.0"
     certificate_name   = "test"
     private_key        = "./../../../_ssl/private-key.pem"
     leaf_certificate   = "./../../../_ssl/star.crt"
@@ -69,7 +70,8 @@ Here are examples of how you can use this module in your inventory structure:
 ### lets-encrypt-certificate
 ```hcl
     module "lets_encrypt_certificate" {
-    source                   = "./../../"
+    source                   = "clouddrove/certificate/digitalocean"
+    version                  = "0.13.0"
     certificate_name         = "test"
     domain_names             = ["clouddrove.com"]
     lets_encrypt_certificate = true
@@ -84,15 +86,15 @@ Here are examples of how you can use this module in your inventory structure:
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|:----:|:-----:|:-----:|
-| certificate_chain | Path of certificate chain. | string | `` | no |
-| certificate_name | The name of the certificate for identification. | string | `` | no |
-| custom_certificate | A boolean flag to enable/disable custom_certificate. | bool | `false` | no |
-| domain_names | List of fully qualified domain names (FQDNs) for which the certificate will be issued. The domains must be managed using DigitalOcean's DNS. Only valid when type is lets_encrypt. | list | `<list>` | no |
-| enable_certificate | A boolean flag to enable/disable certificate. | bool | `true` | no |
-| leaf_certificate | Path of certificate body. | string | `~` | no |
-| lets_encrypt_certificate | A boolean flag to enable/disable lets_encrypt_certificate. | bool | `false` | no |
-| private_key | Path of private key. | string | `` | no |
+|------|-------------|------|---------|:--------:|
+| certificate\_chain | Path of certificate chain. | `string` | `""` | no |
+| certificate\_name | The name of the certificate for identification. | `string` | `""` | no |
+| custom\_certificate | A boolean flag to enable/disable custom\_certificate. | `bool` | `false` | no |
+| domain\_names | List of fully qualified domain names (FQDNs) for which the certificate will be issued. The domains must be managed using DigitalOcean's DNS. Only valid when type is lets\_encrypt. | `list` | `[]` | no |
+| enable\_certificate | A boolean flag to enable/disable certificate. | `bool` | `true` | no |
+| leaf\_certificate | Path of certificate body. | `string` | `"~"` | no |
+| lets\_encrypt\_certificate | A boolean flag to enable/disable lets\_encrypt\_certificate. | `bool` | `false` | no |
+| private\_key | Path of private key. | `string` | `""` | no |
 
 ## Outputs
 
@@ -100,8 +102,8 @@ Here are examples of how you can use this module in your inventory structure:
 |------|-------------|
 | id | The unique ID of the certificate. |
 | name | The name of the certificate. |
-| not_after | The expiration date of the certificate. |
-| sha1_fingerprint | The SHA-1 fingerprint of the certificate. |
+| not\_after | The expiration date of the certificate. |
+| sha1\_fingerprint | The SHA-1 fingerprint of the certificate. |
 
 
 
